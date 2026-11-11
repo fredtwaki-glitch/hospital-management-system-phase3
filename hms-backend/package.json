@@ -1,0 +1,45 @@
+{
+  "name": "hms-backend",
+  "version": "0.1.0",
+  "description": "Multi-tenant Hospital Management System backend - Phase 1: Tenant + Auth foundation",
+  "scripts": {
+    "start:dev": "nest start --watch",
+    "start": "nest start",
+    "build": "nest build",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "migration:generate": "npm run typeorm -- migration:generate -d src/database/data-source.ts",
+    "migration:run": "npm run typeorm -- migration:run -d src/database/data-source.ts",
+    "seed:tenant": "ts-node src/database/scripts/create-tenant.ts",
+    "seed:platform-admin": "ts-node src/database/scripts/create-platform-admin.ts",
+    "migration:run:tenant": "ts-node src/database/scripts/run-tenant-migrations.ts"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.1.28",
+    "@nestjs/config": "^4.0.4",
+    "@nestjs/core": "^11.1.28",
+    "@nestjs/jwt": "^11.0.2",
+    "@nestjs/passport": "^11.0.5",
+    "@nestjs/platform-express": "^11.1.28",
+    "@nestjs/typeorm": "^11.0.3",
+    "bcrypt": "^6.0.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "pg": "^8.11.3",
+    "reflect-metadata": "^0.2.1",
+    "rxjs": "^7.8.1",
+    "typeorm": "^0.3.20"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.24",
+    "@types/bcrypt": "^5.0.2",
+    "@types/node": "^20.11.0",
+    "@types/passport-jwt": "^4.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "allowScripts": {
+    "bcrypt@5.1.1": true
+  }
+}

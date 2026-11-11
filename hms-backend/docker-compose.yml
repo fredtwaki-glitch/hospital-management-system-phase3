@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: hms-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: hms_admin
+      POSTGRES_PASSWORD: changeme
+      # POSTGRES_DB is intentionally left as the default 'postgres' -
+      # the two databases the backend actually uses (hms_control,
+      # hms_tenants) are created by init-databases.sql below.
+    ports:
+      - '5432:5432'
+    volumes:
+      - hms_postgres_data:/var/lib/postgresql/data
+      - ./docker/init-databases.sql:/docker-entrypoint-initdb.d/init-databases.sql:ro
+
+volumes:
+  hms_postgres_data:

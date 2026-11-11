@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES2021",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "strict": true,
+    // TypeORM entities/DTOs rely on decorators to populate properties at
+    // runtime (no constructor assignment), which trips
+    // strictPropertyInitialization. This is the standard TypeORM+NestJS
+    // trade-off: keep strict null checks, relax only init checks.
+    "strictPropertyInitialization": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "sourceMap": true
+  }
+}

@@ -1,0 +1,318 @@
+@import './tokens.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0;
+  color: var(--ink);
+}
+
+h1 {
+  font-size: var(--text-3xl);
+  letter-spacing: -0.01em;
+}
+h2 {
+  font-size: var(--text-2xl);
+}
+h3 {
+  font-size: var(--text-lg);
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--baraka);
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Visible keyboard focus everywhere - non-negotiable for an ops tool */
+:focus-visible {
+  outline: 2px solid var(--marigold-dark);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* --- Layout --- */
+.app-shell {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+@media (max-width: 800px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+}
+
+.main-column {
+  padding: var(--space-6) var(--space-7);
+  max-width: 900px;
+}
+
+@media (max-width: 800px) {
+  .main-column {
+    padding: var(--space-4);
+  }
+}
+
+.page-header {
+  margin-bottom: var(--space-6);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* --- Ledger card: the signature element ---
+   Modeled on a hospital paper-file tab: a small offset "tab" at the top
+   holding the record type + id, a torn/notched right edge, and a
+   corner stamp for status. Used for patient, appointment, and invoice
+   records throughout - it's the one place visual boldness is spent. */
+.ledger-card {
+  position: relative;
+  background: var(--paper-raised);
+  border: 1px solid var(--paper-line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-5);
+  padding-top: var(--space-6);
+  margin-top: var(--space-3);
+}
+
+.ledger-card__tab {
+  position: absolute;
+  top: -14px;
+  left: var(--space-5);
+  background: var(--baraka);
+  color: var(--paper-raised);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  padding: 3px var(--space-3);
+  border-radius: 2px 2px 0 0;
+}
+
+.ledger-card__stamp {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-5);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px var(--space-2);
+  border: 1.5px solid currentColor;
+  border-radius: var(--radius-sm);
+  transform: rotate(-3deg);
+}
+.ledger-card__stamp--active {
+  color: var(--stamp-ink);
+}
+.ledger-card__stamp--pending {
+  color: var(--marigold-dark);
+}
+.ledger-card__stamp--alert {
+  color: var(--brick);
+}
+
+/* --- Ledger stepper: A / B / C, a genuine sequence, not decoration --- */
+.ledger-steps {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+}
+.ledger-step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--paper-line);
+  border-radius: var(--radius-md);
+  background: var(--paper-raised);
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+}
+.ledger-step--done {
+  border-color: var(--baraka);
+  color: var(--baraka);
+}
+.ledger-step--current {
+  border-color: var(--marigold);
+  background: #fbf3e6;
+  color: var(--ink);
+  font-weight: 600;
+}
+.ledger-step__letter {
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+/* --- Form elements --- */
+.field {
+  margin-bottom: var(--space-4);
+}
+.field label {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+  margin-bottom: var(--space-1);
+}
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--paper-line);
+  border-radius: var(--radius-sm);
+  background: var(--paper-raised);
+  color: var(--ink);
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--baraka);
+}
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+@media (max-width: 600px) {
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* --- Buttons --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+.btn-primary {
+  background: var(--marigold);
+  color: var(--ink);
+}
+.btn-primary:hover {
+  background: var(--marigold-dark);
+}
+.btn-secondary {
+  background: transparent;
+  border-color: var(--paper-line);
+  color: var(--ink);
+}
+.btn-secondary:hover {
+  border-color: var(--baraka);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error-banner {
+  background: var(--brick-tint);
+  border: 1px solid var(--brick);
+  color: var(--brick);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-4);
+}
+
+.empty-state {
+  border: 1px dashed var(--paper-line);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.patient-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--paper-line);
+  border-radius: var(--radius-sm);
+  background: var(--paper-raised);
+  margin-bottom: var(--space-2);
+  text-decoration: none;
+  color: var(--ink);
+}
+.patient-list-item:hover {
+  border-color: var(--baraka);
+}
+
+
+/* Compact data table (admin views: all staff shifts, failed events) */
+.data-table-wrap { overflow-x: auto; }
+.data-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.data-table th {
+  text-align: left; padding: var(--space-2) var(--space-3);
+  font-size: var(--text-xs); letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+.data-table td { padding: var(--space-2) var(--space-3); border-bottom: 1px solid rgba(0, 0, 0, 0.07); vertical-align: top; }
+.stat-row { display: flex; gap: var(--space-4); flex-wrap: wrap; margin-bottom: var(--space-4); }
+.stat { min-width: 110px; }
+.stat__value { font-size: var(--text-xl, 1.5rem); font-weight: 600; }
+.stat__label { font-size: var(--text-xs); letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7; }
