@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+﻿import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Tenant } from './tenant/tenant.entity';
@@ -40,6 +40,7 @@ import { TenantResolverMiddleware } from './common/middleware/tenant-resolver.mi
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         type: 'postgres',
+        ssl: { rejectUnauthorized: false },
         host: config.get('CONTROL_DB_HOST'),
         port: config.get('CONTROL_DB_PORT'),
         username: config.get('CONTROL_DB_USER'),

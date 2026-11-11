@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+﻿import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { DataSource } from 'typeorm';
 import { TENANT_SCHEMA_ENTITIES } from './tenant-entities';
@@ -30,6 +30,7 @@ export class TenantConnectionManager {
 
     const dataSource = new DataSource({
       type: 'postgres',
+      ssl: { rejectUnauthorized: false },
       host: this.config.get('TENANT_DB_HOST'),
       port: this.config.get('TENANT_DB_PORT'),
       username: this.config.get('TENANT_DB_USER'),
