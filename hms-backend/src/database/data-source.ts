@@ -23,4 +23,5 @@ export const ControlDataSource = new DataSource({
   entities: [Tenant, PlatformAdmin, PlatformAuditLog],
   migrations: ['src/database/migrations/control/*.ts'],
   synchronize: false,
+  ssl: { rejectUnauthorized: false },
 });
