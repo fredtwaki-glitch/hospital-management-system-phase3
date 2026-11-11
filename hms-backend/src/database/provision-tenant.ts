@@ -23,6 +23,7 @@ export async function provisionTenantSchema(
     username: env.username,
     password: env.password,
     database: env.database,
+    ssl: { rejectUnauthorized: false },
 
     schema: schemaName,
     extra: {

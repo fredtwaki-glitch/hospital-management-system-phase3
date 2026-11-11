@@ -24,6 +24,7 @@ async function main() {
     entities: TENANT_SCHEMA_ENTITIES,
     migrations: ['src/database/migrations/tenant/*.ts'],
     synchronize: false,
+    ssl: { rejectUnauthorized: false },
     migrationsTableName: 'migrations',
   });
 
